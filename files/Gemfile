@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+gem "fluent-plugin-elasticsearch", "2.4.0"
+gem "fluent-plugin-kafka", "0.6.5"
+gem "fluent-plugin-rewrite-tag-filter", "2.0.1"
+gem "fluent-plugin-s3", "1.1.0"
+gem "fluent-plugin-td", "1.0.0"
+gem "fluent-plugin-td-monitoring", "0.2.3"
+gem "fluent-plugin-webhdfs", "1.2.2"
+gem "fluentd", "1.0.2"

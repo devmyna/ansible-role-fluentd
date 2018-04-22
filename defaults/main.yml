@@ -1,0 +1,4 @@
+td_agent_version: "3.1.1"
+fluentd_ports:
+  - 24224
+  - 24225
