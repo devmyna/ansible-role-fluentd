@@ -12,13 +12,12 @@ Environment=LD_PRELOAD=/opt/td-agent/embedded/lib/libjemalloc.so
 #Environment=GEM_HOME=/opt/td-agent/embedded/lib/ruby/gems/2.4.0/
 #Environment=GEM_PATH=/opt/td-agent/embedded/lib/ruby/gems/2.4.0/
 Environment=FLUENT_CONF=/etc/td-agent/td-agent_{{ item }}.conf
-Environment=FLUENT_PLUGIN=/etc/td-agent/plugin
+#Environment=FLUENT_PLUGIN=/etc/td-agent/plugin
 Environment=FLUENT_SOCKET=/var/run/td-agent/td-agent_{{ item }}.sock
-Environment='TD_AGENT_OPTIONS=--gemfile=/etc/td-agent/Gemfile  --gempath=/var/lib/td-agent/vendor/bundle'
 PIDFile=/var/run/td-agent/td-agent_{{ item }}.pid
 RuntimeDirectory=td-agent
 Type=forking
-ExecStart=/opt/td-agent/embedded/bin/fluentd --log /var/log/td-agent/td-agent_{{ item }}.log --daemon /var/run/td-agent/td-agent_{{ item }}.pid $TD_AGENT_OPTIONS
+ExecStart=/opt/td-agent/embedded/bin/fluentd --log /var/log/td-agent/td-agent_{{ item }}.log --daemon /var/run/td-agent/td-agent_{{ item }}.pid --gemfile=/var/lib/td-agent/Gemfile  --gem-path=/var/lib/td-agent/vendor/bundle
 ExecStop=/bin/kill -TERM ${MAINPID}
 ExecReload=/bin/kill -HUP ${MAINPID}
 Restart=always

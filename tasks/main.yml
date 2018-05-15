@@ -3,31 +3,31 @@
 
 - name: Add td repo
   become: yes
-  template: src=fluentd.repo.j2 dest=/etc/yum.repos.d/fluentd.repo
+  template: src=td.repo.j2 dest=/etc/yum.repos.d/td.repo
 
 - name: Install td-agent
   become: yes
   yum: name=td-agent-{{ td_agent_version }} state=present
 
-- name Change td-agent user mode
+- name: Change td-agent user mode
   become: yes
   command: /usr/sbin/usermod -d /var/lib/td-agent td-agent
 
-- name Create home dir
+- name: Create home dir
   become: yes
   file: path=/var/lib/td-agent state=directory owner=td-agent group=td-agent
 
 - name: Copy conf files
   become: yes
   template: src=td-agent.conf.j2 dest=/etc/td-agent/td-agent_{{ item }}.conf
-  with_items: {{ fluentd_ports }}
+  with_items: "{{ fluentd_ports }}"
 
 - name: Copy service files
   become: yes
   template: src=td-agent.service.j2 dest=/usr/lib/systemd/system/td-agent_{{ item }}.service
-  with_items: {{ fluentd_ports }}
+  with_items: "{{ fluentd_ports }}"
 
-- name Copy Gemfile
+- name: Copy Gemfile
   become: yes
   copy: src=Gemfile dest=/etc/td-agent/Gemfile
 
@@ -38,4 +38,4 @@
     state: restarted
     daemon_reload: yes
     enabled: yes
-  with_items: {{ fluentd_ports }}
+  with_items: "{{ fluentd_ports }}"
